@@ -41,9 +41,18 @@ The output consists of the Q-values for each action(flap/do nothing).
 
 The RGB frame obtained by rendering the game is preprocessed for optimized training.
 - **Grayscale Conversion**
-- **Edge Detection Using Conv2d**: To detect the outline of the objects in the frame in order to simplify the image and accentuate the important features, each frame passes through an edge detection filter.
+- **Edge Detection Using Conv2d**: To detect the outline of the objects in the frame in order to simplify the image and accentuate the important features, each frame passes through an edge detection filter, using the outline_kernel.
+```
+outline_kernel = [[-1,-1,-1],
+                  [-1, 8,-1],
+                  [-1,-1,-1]]
+```
+
 - **Resizing**: The frames are resized to 84x84.
 - **Normalization**: The pixel values are normalized to the range [0, 1].
+
+<img src="Report Images/image_preprocess_1.png" alt="Image preprocessing" width="250">
+
 
 ### Hyperparameters
 
@@ -73,6 +82,21 @@ The outline of the objects was set to white, while everything else was set to bl
 Another improvement in this attempt was cropping the ground.
 These changes added a significant improvement in the training process, as the frames were now simplified, better suited for training.
 
+<img src="Report Images/image_process_2.png" alt="Image preprocessing" width="250">
+
+Training routine for the current model:
+1. 1000 epochs for exploring (very quick)
+2. ~300 epochs for learning
+3. Restart learning, keep model from epoch 1300
+4. 1000 epochs for exploring (very quick)
+5.  ~300 epochs for learning
+6. Restart learning, keep model from epoch 1300
+7. 1000 epochs for exploring (very quick)
+8. ~600 epochs for learning
+
+With this model we achieved the best score of 249 passed pipes.
+
+<img src="Report Images/best_score.png" alt="Best score" width="400">
 
 
 #
@@ -86,11 +110,12 @@ This alternation helps stabilize the training, as the action selection and targe
 
 We noticed slower training in this experiment, thus returning to the original Q-learning algorithm.
 
-![Results](Report Images/dual_attempt.png)
+
+<img src="Report Images/dual_attempt.png" alt="Dual attempt results" width="400">
 
 #
 
 
 ### Conclusions
 
-We noticed the first 1000 iterations in which the agent only observes the environment and doesn't train are important for the training.
+We noticed the first 1000 iterations in which the agent only explores the environment and doesn't train are important for the training.
