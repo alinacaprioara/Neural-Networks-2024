@@ -27,8 +27,8 @@ We used a Convolutional Neural Network (CNN) with the purpose of processing the 
 
 1. **Input Layer**: 4 stacked frames of the game (84x84x4)
 2. **Convolutional Layers**:
-   - **Layer 1**: Conv2D with 32 filters, kernel size 8x8, stride 4, and ReLU activation.
-   - **Layer 2**: Conv2D with 64 filters, kernel size 4x4, stride 2, and ReLU activation.
+   - **Layer 1**: Conv2D with 32 filters, kernel size 7x7, stride 3, and ReLU activation.
+   - **Layer 2**: Conv2D with 64 filters, kernel size 5x5, stride 2, and ReLU activation.
    - **Layer 3**: Conv2D with 64 filters, kernel size 3x3, stride 1, and ReLU activation.
 3. **Fully Connected Layers**:
     - **Fully Connected Layer 1**: 256 neurons and ReLU activation.
@@ -75,7 +75,23 @@ outline_kernel = [[-1,-1,-1],
 <img src="Report Images/first_attempt_3.png" alt="Results 3" width="400">
 
 
-###  II. Second Attempt - Final version - Improved image processing
+#
+
+### II. Second attempt - Dual Q-Learning
+
+We tried implementing Dual Q-Learning, with 2 networks: QA and QB.
+The idea mainly consists in using QB_target to calculate the target Q-value when QA selects the action, and vice versa. 
+
+This alternation helps stabilize the training, as the action selection and target evaluation are being done by different networks.
+
+We noticed slower training in this experiment, thus returning to the original Q-learning algorithm.
+
+
+<img src="Report Images/dual_attempt.png" alt="Dual attempt results" width="400">
+
+#
+
+###  III. Final Attempt - Best version - Improved image processing
 
 We improved the image processing by implementing a black and white conversion.
 The outline of the objects was set to white, while everything else was set to black.
@@ -94,28 +110,28 @@ Training routine for the current model:
 7. 1000 epochs for exploring (very quick)
 8. ~600 epochs for learning
 
+
+### Hyperparameters
+
+| Hyperparameter     | Value |
+|--------------------|-------|
+| Learning Rate      | 0.001 |
+| Gamma              | 0.99  |
+| Batch Size         | 32    |
+| Initial Epsilon    | 0.1   |
+| Final Epsilon      | 0.001 |
+| OBSERVE            | 1000  |
+| EXPLORE            | 10000 |
+| Replay Buffer Size | 50000 |
+
+### Results
 With this model we achieved the best score of 249 passed pipes.
 
 <img src="Report Images/best_score.png" alt="Best score" width="400">
 
 
-#
-
-### III. Other attempts - Dual Q-Learning
-
-We tried implementing Dual Q-Learning, with 2 networks: QA and QB.
-The idea mainly consists in using QB_target to calculate the target Q-value when QA selects the action, and vice versa. 
-
-This alternation helps stabilize the training, as the action selection and target evaluation are being done by different networks.
-
-We noticed slower training in this experiment, thus returning to the original Q-learning algorithm.
-
-
-<img src="Report Images/dual_attempt.png" alt="Dual attempt results" width="400">
-
-#
-
-
 ### Conclusions
 
 We noticed the first 1000 iterations in which the agent only explores the environment and doesn't train are important for the training.
+
+For our best model(*the last one*) we noticed that even though it achieves great results on average, it still lacks in consistency. We think that this can be further improved by increasing the training times of the model
