@@ -9,7 +9,7 @@
 This report provides the architecture, hyperparameters and experimentation attempts to optimize the process of maximizing final reward.
 As setup, we used the flappy-bird-gymnasium environment.
 
-
+### [[Demo Video]](https://youtu.be/jPBf9_DFl5Y)
 ## Architecture
 
 ### I. First Attempt - Outline image preprocessing
@@ -62,18 +62,20 @@ The RGB frame obtained by rendering the game is preprocessed for optimized train
 ### Results
 
 <img src="Report Images/first_attempt_1.png" alt="Results 1" width="400">
-
 <img src="Report Images/first_attempt_2.png" alt="Results 2" width="400">
-
 <img src="Report Images/first_attempt_3.png" alt="Results 3" width="400">
 
 
 ###  II. Second Attempt - Final version - Improved image processing
 
-We improved the image processing by firstly setting the outline of the objects to white, and the rest of them black.  
-This added a significant improvement in the training process, as the frames were now simplified, better suited for training.
+We improved the image processing by implementing a black and white conversion.
+The outline of the objects was set to white, while everything else was set to black.
+Another improvement in this attempt was cropping the ground.
+These changes added a significant improvement in the training process, as the frames were now simplified, better suited for training.
 
 
+
+#
 
 ### III. Other attempts - Dual Q-Learning
 
@@ -83,6 +85,10 @@ The idea mainly consists in using QB_target to calculate the target Q-value when
 This alternation helps stabilize the training, as the action selection and target evaluation are being done by different networks.
 
 We noticed slower training in this experiment, thus returning to the original Q-learning algorithm.
+
+![Results](Report Images/dual_attempt.png)
+
+#
 
 
 ### Conclusions
