@@ -12,7 +12,7 @@ As setup, we used the flappy-bird-gymnasium environment.
 
 ## Architecture
 
-### I. First Attempt
+### I. First Attempt - Outline image preprocessing
 
 ### Workflow
 1. Environment initialization
@@ -61,7 +61,30 @@ The RGB frame obtained by rendering the game is preprocessed for optimized train
 
 ### Results
 
-### II. Second Attempt - Adding the Actor Critic Logic
+<img src="Report Images/first_attempt_1.png" alt="Results 1" width="400">
+
+<img src="Report Images/first_attempt_2.png" alt="Results 2" width="400">
+
+<img src="Report Images/first_attempt_3.png" alt="Results 3" width="400">
+
+
+###  II. Second Attempt - Final version - Improved image processing
+
+We improved the image processing by firstly setting the outline of the objects to white, and the rest of them black.  
+This added a significant improvement in the training process, as the frames were now simplified, better suited for training.
 
 
 
+### III. Other attempts - Dual Q-Learning
+
+We tried implementing Dual Q-Learning, with 2 networks: QA and QB.
+The idea mainly consists in using QB_target to calculate the target Q-value when QA selects the action, and vice versa. 
+
+This alternation helps stabilize the training, as the action selection and target evaluation are being done by different networks.
+
+We noticed slower training in this experiment, thus returning to the original Q-learning algorithm.
+
+
+### Conclusions
+
+We noticed the first 1000 iterations in which the agent only observes the environment and doesn't train are important for the training.
