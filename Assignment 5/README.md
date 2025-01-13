@@ -129,6 +129,21 @@ With this model we achieved the best score of 249 passed pipes.
 
 <img src="Report Images/best_score.png" alt="Best score" width="400">
 
+### IV. Other Attempts - Failed and Succesful? Experiments
+
+The previous models were what we found to have a moderate level of succes, and they were our main focus.
+
+One area we tried to tackle was the amount of points the agent got in a run. We noticed that at times, the Agent could get less points when passing the first pipe, and more if the bird had more up-time.
+
+A solution to this issue would be increasing the number of points the agent got by passing a pipe, making it more bias towards passing pipes.
+
+We have no data wether or not this solution is efficient, but we noticed a small increase in convergence.
+
+#### Sarsa Agent
+
+After using an off-policy agent for most of our testing, we noticed that the main cause of failure was hitting the bottom pipe. This was happening because or model prioritized the shortest path, thus jumping at the exact moment when it was needed.
+
+SARSA, an on-policy algorithm, displayed a different behaviour, the bird trying to always be at the center of the two pipes.
 
 ### Conclusions
 
